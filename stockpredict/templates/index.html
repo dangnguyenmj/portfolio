@@ -1,0 +1,519 @@
+
+<!DOCTYPE html>
+<html >
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="https://r.mobirisesite.com/969496/assets/images/g585e5d7b76e14419ad8694fc370f-h_m4a2jcbk.png" type="image/x-icon">
+  <meta name="description" content="Discover how to leverage Python for stock market predictions. Learn techniques, libraries, and strategies to enhance your trading decisions effectively.">
+  <title>Stock Prediction Python</title>
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/web/assets/mobirise-icons2/mobirise2.css?rnd=1733327690200">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/bootstrap/css/bootstrap.min.css?rnd=1733327690200">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/bootstrap/css/bootstrap-grid.min.css?rnd=1733327690200">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/bootstrap/css/bootstrap-reboot.min.css?rnd=1733327690200">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/parallax/jarallax.css?rnd=1733327690200">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/dropdown/css/style.css?rnd=1733327690200">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/smart-cart/minicart-theme.css?rnd=1733327690200">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/theme/css/style.css?rnd=1733327690200">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Brygada+1918:wght@400;700&display=swap&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Brygada+1918:wght@400;700&display=swap&display=swap"></noscript>
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/css/mbr-additional.css?rnd=1733327690200" type="text/css">
+
+
+<style>
+.navbar-fixed-top {
+  top: auto;
+}
+#mobiriseBanner.container-banner {
+  height: 11rem;
+  opacity: 1;
+  -webkit-animation: 4s linear animationHeight;
+  -moz-animation: 4s linear animationHeight;
+    -o-animation: 4s linear animationHeight;
+       animation: 4s linear animationHeight;
+       transition: all  0.5s;
+}
+#mobiriseBanner.container-banner.container-banner-closing {
+  pointer-events: none;
+  height: 0;
+  opacity: 0;
+  -webkit-animation: 0.5s linear animationClosing;
+  -moz-animation:  0.5s linear animationClosing;
+    -o-animation:  0.5s linear animationClosing;
+       animation:  0.5s linear animationClosing;
+}
+#mobiriseBanner .banner {
+  min-height: 11rem;
+  position:fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 10px;
+  opacity:1;
+  -webkit-animation: 4s linear animationBanner;
+  -moz-animation: 4s linear animationBanner;
+    -o-animation: 4s linear animationBanner;
+       animation: 4s linear animationBanner;
+  z-index: 1031;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#mobiriseBanner .banner p {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  animation: none;
+  visibility: visible;
+}
+#mobiriseBanner .buy-license {
+  text-decoration: underline;
+}
+#mobiriseBanner .banner .btn {
+  margin: 0.3rem 0.5rem;
+  animation: none;
+  visibility: visible;
+}
+.navbar.opened {
+    z-index: 1032;
+}
+@-webkit-keyframes animationBanner { 0% { opacity: 0; top: -11rem; } 75% { opacity: 0; top: -11rem; } 100% { opacity: 1; top: 0; } }
+@-moz-keyframes animationBanner { 0% { opacity: 0; top: -11rem; } 75% { opacity: 0; top: -11rem; } 100% { opacity: 1; top: 0; } }
+@-o-keyframes animationBanner { 0% { opacity: 0; top: -11rem; } 75% { opacity: 0; top: -11rem; } 100% { opacity: 1; top: 0; } }
+   @keyframes animationBanner { 0% { opacity: 0; top: -11rem; } 75% { opacity: 0; top: -11rem; } 100% { opacity: 1; top: 0; } }
+@-webkit-keyframes animationHeight { 0% { height: 0; } 75% { height: 0; } 100% { height: 11rem; } }
+@-moz-keyframes animationHeight { 0% { height: 0; } 75% { height: 0; } 100% { height: 11rem; } }
+@-o-keyframes animationHeight { 0% { height: 0; } 75% { height: 0; } 100% { height: 11rem; } }
+   @keyframes animationHeight { 0% { height: 0; } 75% { height: 0; } 100% { height: 11rem; } }
+
+@-webkit-keyframes animationClosing { 0% { height: 11rem; opacity: 1; } 30% { height: 11rem; opacity: 0.5;} 100% { height: 0; opacity: 0;} }
+@-moz-keyframes animationClosing { 0% { height: 11rem; opacity: 1; } 30% { height: 11rem; opacity: 0.5;} 100% { height: 0; opacity: 0;} }
+@-o-keyframes animationClosing { 0% { height: 11rem; opacity: 1; } 30% { height: 11rem; opacity: 0.5;} 100% { height: 0; opacity: 0;} }
+@keyframes animationClosing { 0% { height: 11rem; opacity: 1; } 30% { height: 11rem; opacity: 0.5;} 100% { height: 0; opacity: 0;} }
+
+@media(max-width: 767px) {
+  #mobiriseBanner.container-banner {
+    height: 12rem;
+  }
+  #mobiriseBanner .banner {
+    min-height: 12rem;
+  }
+  @-webkit-keyframes animationBanner { 0% { opacity: 0; top: -12rem; } 75% { opacity: 0; top: -12rem; } 100% { opacity: 1; top: 0; } }
+  @-moz-keyframes animationBanner { 0% { opacity: 0; top: -12rem; } 75% { opacity: 0; top: -12rem; } 100% { opacity: 1; top: 0; } }
+  @-o-keyframes animationBanner { 0% { opacity: 0; top: -12rem; } 75% { opacity: 0; top: -12rem; } 100% { opacity: 1; top: 0; } }
+    @keyframes animationBanner { 0% { opacity: 0; top: -12rem; } 75% { opacity: 0; top: -12rem; } 100% { opacity: 1; top: 0; } }
+  @-webkit-keyframes animationHeight { 0% { height: 0; } 75% { height: 0; } 100% { height: 12rem; } }
+  @-moz-keyframes animationHeight { 0% { height: 0; } 75% { height: 0; } 100% { height: 12rem; } }
+  @-o-keyframes animationHeight { 0% { height: 0; } 75% { height: 0; } 100% { height: 12rem; } }
+    @keyframes animationHeight { 0% { height: 0; } 75% { height: 0; } 100% { height: 12rem; } }
+
+  @-webkit-keyframes animationClosing { 0% { height: 12rem; opacity: 1; } 30% { height: 12rem; opacity: 0.5;} 100% { height: 0; opacity: 0;} }
+  @-moz-keyframes animationClosing { 0% { height: 12rem; opacity: 1; } 30% { height: 12rem; opacity: 0.5;} 100% { height: 0; opacity: 0;} }
+  @-o-keyframes animationClosing { 0% { height: 12rem; opacity: 1; } 30% { height: 12rem; opacity: 0.5;} 100% { height: 0; opacity: 0;} }
+  @keyframes animationClosing { 0% { height: 12rem; opacity: 1; } 30% { height: 12rem; opacity: 0.5;} 100% { height: 0; opacity: 0;} }
+}
+</style>
+</head>
+<body>
+
+
+  <section data-bs-version="5.1" class="menu menu2 cid-uvYTzZQ3D3" once="menu" id="menu-5-uvYTzZQ3D3">
+
+
+	<nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+		<div class="container">
+			<div class="navbar-brand">
+				<span class="navbar-logo">
+					<a href="#">
+						<img src="https://r.mobirisesite.com/969496/assets/images/g585e5d7b76e14419ad8694fc370f-h_m4a2jcbk.png" alt="" style="height: 4.3rem;">
+					</a>
+				</span>
+				<span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="#">Stock Prediction</a></span>
+			</div>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<div class="hamburger">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item">
+                        <a class="nav-link link text-black display-4" href="{{ url_for('home') }}">Home</a>
+					</li><li class="nav-item">
+						<a class="nav-link link text-black display-4" href="{{ url_for('dashboard') }}">Dashboard</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link link text-black display-4" href="{{ url_for('forecast_page') }}">Forecast</a>
+					</li></ul>
+
+				<div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="#">Team 5</a></div>
+			</div>
+		</div>
+	</nav>
+</section>
+
+<section data-bs-version="5.1" class="header18 cid-uvYTzZTlVy mbr-fullscreen" data-bg-video="https://www.youtube.com/embed/xxnW5WOBrOo?autoplay=1&amp;loop=1&amp;playlist=xxnW5WOBrOo&amp;t=20&amp;mute=1&amp;playsinline=1&amp;controls=0&amp;showinfo=0&amp;autohide=1&amp;allowfullscreen=true&amp;mode=transparent" id="hero-15-uvYTzZTlVy">
+
+
+  <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(0, 0, 0);"></div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="content-wrap col-12 col-md-6">
+        <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-1"><strong>Dự đoán giá cổ phiếu ngành năng lượng tại Mỹ&nbsp;</strong></h1>
+
+        <p class="mbr-fonts-style mbr-text mbr-white mb-4 display-7">Hiểu rõ xu hướng và cơ hội đầu tư</p>
+        <div class="mbr-section-btn"><a class="btn btn-white-outline display-7" href="#about-us-15-uvYTzZY5qp">Tìm hiểu thêm</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-bs-version="5.1" class="features023 cid-uvYTzZUpD5" id="metrics-1-uvYTzZUpD5">
+
+
+
+
+
+    <div class="container">
+
+        <div class="row content-row justify-content-center">
+
+            <div class="item features-without-image col-12 col-md-6 col-lg-4 item-mb">
+                <div class="item-wrapper">
+                    <div class="title mb-2 mb-md-3">
+                        <span class="num mbr-fonts-style display-1">
+                            <strong>1000+</strong></span>
+                    </div>
+                    <h4 class="card-title mbr-fonts-style display-5"><strong>Cổ phiếu từ yfinance</strong></h4>
+
+                </div>
+            </div>
+            <div class="item features-without-image col-12 col-md-6 col-lg-4 item-mb">
+                <div class="item-wrapper">
+                    <div class="title mb-2 mb-md-3">
+                        <span class="num mbr-fonts-style display-1"><strong>3</strong></span>
+                    </div>
+                    <h4 class="card-title mbr-fonts-style display-5"><strong>Mô hình dự đoán</strong></h4>
+
+                </div>
+            </div><div class="item features-without-image col-12 col-md-6 col-lg-4 item-mb">
+                <div class="item-wrapper">
+                    <div class="title mb-2 mb-md-3">
+                        <span class="num mbr-fonts-style display-1"><strong>80%</strong></span>
+                    </div>
+                    <h4 class="card-title mbr-fonts-style display-5"><strong>Độ chính xác</strong></h4>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="article15 cid-uvYTzZY5qp" id="about-us-15-uvYTzZY5qp">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md">
+
+                <h6 class="mbr-section-subtitle mbr-fonts-style mt-0 mb-4 display-5"><strong>Dự đoán giá cổ phiếu ngành năng lượng tại Mỹ: Đón đầu xu hướng, tối ưu đầu tư</strong></h6>
+            </div>
+            <div class="col-md-12 col-lg-6">
+                <p class="mbr-text mbr-fonts-style display-7">Ngành năng lượng Mỹ đang trải qua những biến động lớn, chịu ảnh hưởng từ sự biến đổi của giá dầu toàn cầu, chính sách năng lượng xanh, và xu hướng đầu tư quốc tế. Là một nhà đầu tư thông minh, bạn cần nắm bắt cơ hội từ những biến động này để đạt được lợi nhuận tối đa.<br><br>Trang web của chúng tôi cung cấp các dự báo giá cổ phiếu chính xác, dựa trên:<br><br><em>Phân tích dữ liệu chuyên sâu: </em>Các chỉ số kỹ thuật, cơ bản và cảm xúc thị trường<br><em>Công nghệ dự báo hiện đại: </em>Từ mô hình AI đến các phương pháp thống kê tiên tiến<br><em>Cập nhật liên tục:</em> Thông tin thời gian thực giúp bạn đưa ra quyết định nhanh chóng và hiệu quả<br>Hãy khám phá các công cụ, báo cáo, và tín hiệu đầu tư được thiết kế riêng để hỗ trợ bạn trong hành trình chinh phục thị trường ngành năng lượng!</p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="gallery4 cid-uvYTA01pNT" id="gallery-12-uvYTA01pNT">
+
+
+  <div class="container-fluid gallery-wrapper">
+    <div class="row justify-content-center">
+      <div class="col-12 content-head">
+
+      </div>
+    </div>
+    <div class="grid-container">
+      <div class="grid-container-1" style="transform: translate3d(-200px, 0px, 0px);">
+        <div class="grid-item">
+          <img src="https://r.mobirisesite.com/969496/assets/images/gc97e9558837320961c7f1aebd49e-h_m4a0ztit.jpg" alt="">
+        </div>
+        <div class="grid-item">
+          <img src="https://r.mobirisesite.com/969496/assets/images/photo-1691643158804-d3f02eb456a3.jpeg" alt="">
+        </div>
+        <div class="grid-item">
+          <img src="https://r.mobirisesite.com/969496/assets/images/photo-1683718522443-355f717f3b2a.jpeg" alt="">
+        </div>
+        <div class="grid-item">
+          <img src="https://r.mobirisesite.com/969496/assets/images/photo-1553268169-8232852a2377.jpeg" alt="">
+        </div>
+      </div>
+      <div class="grid-container-2" style="transform: translate3d(-70px, 0px, 0px);">
+        <div class="grid-item">
+          <img src="https://r.mobirisesite.com/969496/assets/images/photo-1478334044015-53514ea3ec37.jpeg" alt="">
+        </div>
+        <div class="grid-item">
+          <img src="https://r.mobirisesite.com/969496/assets/images/photo-1711395652719-302474cb86a2.jpeg" alt="">
+        </div>
+        <div class="grid-item">
+          <img src="https://r.mobirisesite.com/969496/assets/images/photo-1666875753105-c63a6f3bdc86.jpeg" alt="">
+        </div>
+        <div class="grid-item">
+          <img src="https://r.mobirisesite.com/969496/assets/images/photo-1640942165441-8b5f9d68bfab.jpeg" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-bs-version="5.1" class="header14 cid-uvYTA02h8m mbr-parallax-background" id="call-to-action-9-uvYTA02h8m">
+
+
+
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="card col-12 col-md-12 col-lg-10">
+				<div class="card-wrapper">
+					<div class="card-box align-center">
+						<h1 class="card-title mbr-fonts-style mb-4 display-1"><strong>Dẫn lối đầu tư với dữ liệu và công nghệ!</strong></h1>
+						<p class="mbr-text mbr-fonts-style mb-4 display-7">Công cụ hiện đại giúp bạn luôn đi trước thị trường</p>
+						<div class="mbr-section-btn mt-4"><a class="btn btn-primary display-7" href="{{ url_for('forecast_page') }}">Khám phá ngay!</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section data-bs-version="5.1" class="gallery10 cid-uvYTA02jVw" id="features-69-uvYTA02jVw">
+
+
+
+  <div class="container-fluid">
+
+      <div class="loop-container">
+        <div class="item display-1" data-linewords="Dự đoán chính xác. Quyết định đúng đắn. Đầu tư thành công. " data-direction="-1" data-speed="0.05">☁️ Best offers ☁️ Free delivery ☁️ Perfect design ☁️ Comfort ☁️ Support 24/7 ☁️ Vibes</div>
+
+        <div class="item display-1" data-linewords="Dự đoán chính xác. Quyết định đúng đắn. Đầu tư thành công. " data-direction="-1" data-speed="0.05">☁️ Best offers ☁️ Free delivery ☁️ Perfect design ☁️ Comfort ☁️ Support 24/7 ☁️ Vibes</div>
+      </div>
+
+  </div>
+</section>
+
+<section data-bs-version="5.1" class="header18 cid-uvYTA02ujB mbr-fullscreen" data-bg-video="https://www.youtube.com/embed/ExL8jClroLQ?autoplay=1&amp;loop=1&amp;playlist=ExL8jClroLQ&amp;t=20&amp;mute=1&amp;playsinline=1&amp;controls=0&amp;showinfo=0&amp;autohide=1&amp;allowfullscreen=true&amp;mode=transparent" id="video-5-uvYTA02ujB">
+
+
+  <div class="mbr-overlay" style="opacity: 0.3; background-color: rgb(0, 0, 0);"></div>
+  <div class="container-fluid">
+    <div class="row">
+    </div>
+  </div>
+</section>
+
+<section data-bs-version="5.1" class="list1 cid-uvYTA031PT" id="faq-1-uvYTA031PT">
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-12 col-lg-10 m-auto">
+                <div class="content">
+                    <div class="row justify-content-center mb-5">
+                        <div class="col-12 content-head">
+                            <div class="mbr-section-head">
+                                <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Câu hỏi thường gặp</strong></h4>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="bootstrap-accordion_11" class="panel-group accordionStyles accordion" role="tablist" aria-multiselectable="true">
+                        <div class="card">
+                            <div class="card-header" role="tab" id="headingOne">
+                                <a role="button" class="panel-title collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-core="" href="#collapse1_11" aria-expanded="false" aria-controls="collapse1">
+                                    <h6 class="panel-title-edit mbr-semibold mbr-fonts-style mb-0 display-5">Dự đoán giá cổ phiếu ngành năng lượng dựa trên những yếu tố nào?</h6>
+                                    <span class="sign mbr-iconfont mobi-mbri-arrow-down"></span>
+                                </a>
+                            </div>
+                            <div id="collapse1_11" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion" data-bs-parent="#bootstrap-accordion_11">
+                                <div class="panel-body">
+                                    <p class="mbr-fonts-style panel-text display-7">Chúng tôi dự đoán giá dựa trên dữ liệu thị trường, phân tích kỹ thuật, các mô hình dự báo AI.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" role="tab" id="headingOne">
+                                <a role="button" class="panel-title collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-core="" href="#collapse2_11" aria-expanded="false" aria-controls="collapse2">
+                                    <h6 class="panel-title-edit mbr-semibold mbr-fonts-style mb-0 display-5">Độ chính xác của các dự báo trên trang web là bao nhiêu?</h6>
+                                    <span class="sign mbr-iconfont mobi-mbri-arrow-down"></span>
+                                </a>
+                            </div>
+                            <div id="collapse2_11" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion" data-bs-parent="#bootstrap-accordion_11">
+                                <div class="panel-body">
+                                    <p class="mbr-fonts-style panel-text display-7">Độ chính xác phụ thuộc vào điều kiện thị trường. Tuy nhiên, chúng tôi liên tục tối ưu các mô hình dự đoán để đạt độ chính xác cao nhất, thường xuyên vượt trên 80% cho các xu hướng ngắn hạn.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" role="tab" id="headingOne">
+                                <a role="button" class="panel-title collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-core="" href="#collapse3_11" aria-expanded="false" aria-controls="collapse3">
+                                    <h6 class="panel-title-edit mbr-semibold mbr-fonts-style mb-0 display-5">Làm thế nào để sử dụng công cụ phân tích cổ phiếu?</h6>
+                                    <span class="sign mbr-iconfont mobi-mbri-arrow-down"></span>
+                                </a>
+                            </div>
+                            <div id="collapse3_11" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion" data-bs-parent="#bootstrap-accordion_11">
+                                <div class="panel-body">
+                                    <p class="mbr-fonts-style panel-text display-7">Bạn chỉ cần nhập mã cổ phiếu hoặc chọn từ danh sách có sẵn, công cụ của chúng tôi sẽ hiển thị các chỉ số, biểu đồ và dự đoán cụ thể.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" role="tab" id="headingOne">
+                                <a role="button" class="panel-title collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-core="" href="#collapse4_11" aria-expanded="false" aria-controls="collapse4">
+                                    <h6 class="panel-title-edit mbr-semibold mbr-fonts-style mb-0 display-5">Trang web có hỗ trợ phân tích cổ phiếu ngoài ngành năng lượng không?</h6>
+                                    <span class="sign mbr-iconfont mobi-mbri-arrow-down"></span>
+                                </a>
+                            </div>
+                            <div id="collapse4_11" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion" data-bs-parent="#bootstrap-accordion_11">
+                                <div class="panel-body">
+                                    <p class="mbr-fonts-style panel-text display-7">Hiện tại, chúng tôi tập trung vào ngành năng lượng. Tuy nhiên, nhà đầu tư cũng có thể tìm kiếm dự đoán giá cổ phiếu sang các ngành khác như công nghệ và tài chính.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" role="tab" id="headingOne">
+                                <a role="button" class="panel-title collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-core="" href="#collapse5_11" aria-expanded="false" aria-controls="collapse5">
+                                    <h6 class="panel-title-edit mbr-semibold mbr-fonts-style mb-0 display-5">Làm thế nào để liên hệ với đội ngũ hỗ trợ?</h6>
+                                    <span class="sign mbr-iconfont mobi-mbri-arrow-down"></span>
+                                </a>
+                            </div>
+                            <div id="collapse5_11" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion" data-bs-parent="#bootstrap-accordion_11">
+                                <div class="panel-body">
+                                    <p class="mbr-fonts-style panel-text display-7">Bạn có thể liên hệ qua email hoặc hotline được cung cấp trong mục “Liên hệ chúng tôi”</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="image02 cid-uvYTA05FeG mbr-fullscreen mbr-parallax-background" id="image-13-uvYTA05FeG">
+
+
+    <div class="container">
+        <div class="row"></div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="contacts01 cid-uvYTA05TSX" id="contacts-1-uvYTA05TSX">
+
+
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 content-head">
+                <div class="mbr-section-head mb-5">
+                    <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Liên hệ chúng tôi</strong></h3>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="item features-without-image col-12 col-md-6 active">
+                <div class="item-wrapper">
+                    <div class="text-wrapper">
+                        <h6 class="card-title mbr-fonts-style mb-3 display-5"><strong>Hotline</strong></h6>
+                        <p class="mbr-text mbr-fonts-style display-7">
+                            <a href="tel:+421 123 456 789" class="text-black">+421 123 456 789</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="item features-without-image col-12 col-md-6">
+                <div class="item-wrapper">
+                    <div class="text-wrapper">
+                        <h6 class="card-title mbr-fonts-style mb-3 display-5">
+                            <strong>Email</strong>
+                        </h6>
+                        <p class="mbr-text mbr-fonts-style display-7">
+                            <a href="mailto:info@predikciastock.sk" class="text-black">info@predikciastock.sk</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="item features-without-image col-12 col-md-6">
+                <div class="item-wrapper">
+                    <div class="text-wrapper">
+                        <h6 class="card-title mbr-fonts-style mb-3 display-5"><strong>Địa chỉ</strong></h6>
+                        <p class="mbr-text mbr-fonts-style display-7">PTIT</p>
+                    </div>
+                </div>
+            </div>
+            <div class="item features-without-image col-12 col-md-6">
+                <div class="item-wrapper">
+                    <div class="text-wrapper">
+                        <h6 class="card-title mbr-fonts-style mb-3 display-5"><strong>Giờ làm việc</strong></h6>
+                        <p class="mbr-text mbr-fonts-style display-7">Thời gian: 9:00 - 17:00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="footer3 cid-uvYTA06vPL" once="footers" id="footer-6-uvYTA06vPL">
+
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="row-links">
+                <ul class="header-menu">
+
+
+
+
+                <li class="header-menu-item mbr-fonts-style display-5"></li><li class="header-menu-item mbr-fonts-style display-5"></li><li class="header-menu-item mbr-fonts-style display-5"></li><li class="header-menu-item mbr-fonts-style display-5"></li></ul>
+            </div>
+
+            <div class="col-12 mt-4">
+                <p class="mbr-fonts-style copyright display-7">© 2024 Nhóm 5. Phân tích dữ liệu tài chính quy mô lớn.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+  <script src="https://r.mobirisesite.com/969496/assets/web/assets/jquery/jquery.min.js?rnd=1733327690200"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/bootstrap/js/bootstrap.bundle.min.js?rnd=1733327690200"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/parallax/jarallax.js?rnd=1733327690200"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/smoothscroll/smooth-scroll.js?rnd=1733327690200"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/ytplayer/index.js?rnd=1733327690200"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/dropdown/js/navbar-dropdown.js?rnd=1733327690200"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/smart-cart/minicart.js?rnd=1733327690200"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/smart-cart/minicart-customizer.js?rnd=1733327690200"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/vimeoplayer/player.js?rnd=1733327690200"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/scrollgallery/scroll-gallery.js?rnd=1733327690200"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/mbr-switch-arrow/mbr-switch-arrow.js?rnd=1733327690200"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/theme/js/script.js?rnd=1733327690200"></script>
+
+
+
+
+</body>
+</html>

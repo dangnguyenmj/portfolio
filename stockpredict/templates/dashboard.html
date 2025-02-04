@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="https://r.mobirisesite.com/969496/assets/images/g585e5d7b76e14419ad8694fc370f-h_m4a2jcbk.png" type="image/x-icon">
+  <meta name="description" content="">
+  <title>Stock Market Dashboard</title>
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/bootstrap/css/bootstrap.min.css?rnd=1733393949600">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/bootstrap/css/bootstrap-grid.min.css?rnd=1733393949600">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/bootstrap/css/bootstrap-reboot.min.css?rnd=1733393949600">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/dropdown/css/style.css?rnd=1733393949600">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/theme/css/style.css?rnd=1733393949600">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Brygada+1918:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Brygada+1918:wght@400;700&display=swap"></noscript>
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/css/mbr-additional.css?rnd=1733393949600" type="text/css">
+
+  <!-- Thêm Chart.js và Chart.js Financial Plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+
+  <style>
+    body {
+            font-family: "Times New Roman", Times, serif;
+        }
+
+    .navbar-fixed-top {
+      top: auto;
+    }
+
+    /* Thêm style cho bảng cổ phiếu */
+    .stock-table {
+      margin-top: 2rem;
+    }
+    .chart-container {
+      margin-top: 2rem;
+    }
+
+    /* Responsive Charts */
+    @media (min-width: 768px) {
+      .charts-row {
+        display: flex;
+        gap: 2rem;
+      }
+      .chart-container {
+        flex: 1;
+      }
+    }
+
+    /* Style cho bảng thông tin chi tiết cổ phiếu */
+    .detailed-stock-table {
+      margin-top: 2rem;
+    }
+
+    /* Style cho lựa chọn chỉ số */
+    .indicator-selection {
+      margin-top: 2rem;
+    }
+
+    /* Thêm một số cải tiến về style */
+    .card {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    .card-header {
+      background-color: #f8f9fa;
+      border-bottom: none;
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+    .table th, .table td {
+      vertical-align: middle;
+    }
+    .indicator-selection .form-check-label {
+      margin-left: 0.25rem;
+    }
+    /* Thêm màu sắc cho các chỉ số kỹ thuật */
+    .badge-indicator {
+      font-size: 1rem;
+      padding: 0.5em 0.75em;
+    }
+    .large-label {
+      font-size: 1.5rem;
+      font-weight: bold; 
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- Thanh Điều Hướng -->
+  <section data-bs-version="5.1" class="menu menu5 cid-uw0dVES509" once="menu" id="menu05-3">
+    <nav class="navbar navbar-dropdown navbar-expand-lg navbar-light bg-white">
+      <div class="container">
+        <div class="navbar-brand">
+          <span class="navbar-logo">
+            <a href="#">
+              <img src="https://r.mobirisesite.com/969496/assets/images/g11ffb3b0af0e5b5b3238da5e5828-h_m4a1z44k.png" alt="" style="height: 3.7rem;">
+            </a>
+          </span>
+          <span class="navbar-caption-wrap"><a class="navbar-caption text-dark display-4" href="#">Stock Dashboard</a></span>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
+            <li class="nav-item">
+              <a class="nav-link link text-black display-4" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link text-black display-4" href="{{ url_for('dashboard') }}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link text-black display-4" href="{{ url_for('forecast_page') }}">Forecast</a>
+            </li>
+          </ul>
+          <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="#">Team 5</a></div>
+        </div>
+      </div>
+    </nav>
+  </section>
+
+
+  <!-- Phần Dashboard -->
+  <section data-bs-version="5.1" class="people01 cid-uw0eGaITdY" id="people01-5">
+    <div class="container my-5">
+      <!-- Mô Tả Dashboard -->
+      <div class="row mb-5">
+        <div class="col-12 text-center">
+          <h3 class="mbr-section-maintitle mbr-fonts-style display-2"><strong>Dashboard</strong></h3>
+          <p class="mbr-section-maintext mbr-fonts-style display-7">
+            Chào mừng bạn đến với Dashboard, nơi tập trung thông tin cần thiết để bạn nắm bắt thị trường trong tầm tay!<br><br>
+            - Dữ liệu thời gian thực: Theo dõi biến động giá cổ phiếu và các chỉ số quan trọng ngay khi chúng xảy ra<br>
+            - Biểu đồ tương tác: Khám phá xu hướng qua các đồ thị được cập nhật trực quan và dễ sử dụng<br>
+            - Tìm kiếm nhanh: Tìm kiếm mã cổ phiếu để xem thông tin chi tiết
+          </p>
+        </div>
+      </div>
+    
+      <div class="container">     
+          <form method="POST">
+            <div class="mb-3">
+                <label for="stock" class="form-label large-label">Nhập mã cổ phiếu:</label>
+                <input type="text" class="form-control" id="stock" name="stock" value="{{ stock }}">
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="start_date" class="form-label large-label">Ngày bắt đầu:</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" value="{{ start_date }}">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="end_date" class="form-label large-label">Ngày kết thúc:</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" value="{{ end_date }}">
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary large-label">Tìm kiếm</button>
+            </div>
+          </form>
+          
+          {% if error %}
+          <div class="alert alert-danger mt-4">
+              {{ error }}
+          </div>
+          {% endif %}
+      
+          {% if stock_details %}
+          <h3 class="mt-5 large-label">Chi tiết cổ phiếu</h3>
+          <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+              {{ stock_details|safe }}
+          </div>
+          {% endif %}
+
+          {% if data_desc %}
+          <h3 class="mt-5 large-label">Mô tả thống kê</h3>
+          <br>
+          <div class="table-responsive">
+              {{ data_desc|safe }}
+          </div>
+          {% endif %}
+          
+          <br>
+          
+          {% if line_chart_path %}
+          <h3 class="mt-5 large-label">Line Chart</h3>
+          <img src="{{ line_chart_path }}" alt="Line Chart">
+          {% endif %}
+
+          <!-- Plot EMA SMA 20 & 50 -->
+          {% if ema_chart_path %}
+          <div class="chart-container">
+            <h3 class="mt-5 large-label">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#emaModal">EMA 20 & 50</a>
+            </h3>
+            <img src="{{ ema_chart_path }}" alt="EMA Chart" class="img-fluid">
+          </div>
+          {% endif %}
+
+          <!-- Modal cho EMA -->
+          <div class="modal fade" id="emaModal" tabindex="-1" aria-labelledby="emaModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="emaModalLabel">Khái niệm về EMA</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>EMA</strong> (Exponential Moving Average) là đường trung bình động hàm mũ, tập trung nhiều vào các giá trị gần đây để phản ánh xu hướng giá hiện tại chính xác hơn:</p>
+                        <ul>
+                            <li>EMA được tính bằng cách áp dụng trọng số cao hơn cho các giá trị gần nhất.</li>
+                            <li>Dùng để xác định xu hướng ngắn hạn và phát hiện các tín hiệu giao dịch nhanh hơn so với SMA.</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+          
+          {% if sma_chart_path %}
+          <h3 class="mt-5 large-label">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#smaModal">SMA 20 & 50</a>
+          </h3>
+          <img src="{{ sma_chart_path }}" alt="SMA Chart" class="img-fluid">
+          {% endif %}
+
+            <!-- Modal cho SMA -->
+            <div class="modal fade" id="smaModal" tabindex="-1" aria-labelledby="smaModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="smaModalLabel">Khái niệm về SMA</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <p><strong>SMA</strong> (Simple Moving Average) là trung bình cộng giá đóng cửa của cổ phiếu trong một khoảng thời gian nhất định. SMA giúp nhà đầu tư nhận biết xu hướng giá cổ phiếu:</p>
+                          <ul>
+                              <li><strong>SMA ngắn hạn:</strong> Nhạy với biến động giá và dùng để phát hiện tín hiệu mua bán ngắn hạn.</li>
+                              <li><strong>SMA dài hạn:</strong> Giúp xác định xu hướng tổng thể dài hạn của thị trường.</li>
+                          </ul>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+      
+          <!-- Plot MACD -->
+          {% if plot_macd_path %}
+          <h3 class="mt-5 large-label">
+              <a href="#" data-bs-toggle="modal" data-bs-target="#macdModal">MACD</a>
+          </h3>
+          <img src="{{ plot_macd_path }}" alt="MACD" class="img-fluid">
+
+          <!-- Modal cho MACD -->
+          <div class="modal fade" id="macdModal" tabindex="-1" aria-labelledby="macdModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="macdModalLabel">Khái niệm về MACD</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <p><strong>MACD</strong> (Moving Average Convergence Divergence) là một chỉ báo kỹ thuật được sử dụng để xác định động lượng và xu hướng của giá cổ phiếu. Các thành phần chính bao gồm:</p>
+                          <ul>
+                              <li><strong>Đường MACD:</strong> Chênh lệch giữa EMA ngắn hạn (thường là EMA 12) và EMA dài hạn (thường là EMA 26).</li>
+                              <li><strong>Đường tín hiệu:</strong> Đường EMA 9 của MACD.</li>
+                              <li><strong>Histogram:</strong> Chênh lệch giữa MACD và Đường tín hiệu.</li>
+                          </ul>
+                          <p>MACD giúp nhà đầu tư xác định các điểm mua bán quan trọng dựa trên sự giao cắt giữa các đường và biến động histogram.</p>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endif %}
+
+          {% if rsi_chart_path %}
+          <h3 class="mt-5 large-label">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#rsiModal">RSI</a>
+          </h3>
+          <img src="{{ rsi_chart_path }}" alt="RSI Chart" class="img-fluid">
+          {% endif %}
+
+          <!-- Modal cho RSI -->
+          <div class="modal fade" id="rsiModal" tabindex="-1" aria-labelledby="rsiModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="rsiModalLabel">Khái niệm về RSI</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>RSI</strong> (Relative Strength Index) là một chỉ báo dao động được sử dụng để đánh giá sức mạnh giá tương đối của cổ phiếu trong một khoảng thời gian:</p>
+                        <ul>
+                            <li>RSI thường dao động từ 0 đến 100.</li>
+                            <li>RSI > 70: Cổ phiếu đang ở vùng quá mua (có thể điều chỉnh giảm).</li>
+                            <li>RSI < 30: Cổ phiếu đang ở vùng quá bán (có thể tăng trở lại).</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </section>
+
+    <!-- Chân Trang -->
+    <section data-bs-version="5.1" class="footer4 cid-uw0fiKUjPA" once="footers" id="footer04-6">
+      <div class="container py-4">
+        <div class="media-container-row align-center mbr-white">
+          <div class="col-12">
+            <p class="mbr-text mb-0 mbr-fonts-style display-7 text-center">
+              © 2024 Nhóm 5. Phân tích dữ liệu tài chính quy mô lớn.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <!-- Thư Viện JavaScript -->
+  <script src="https://r.mobirisesite.com/969496/assets/web/assets/jquery/jquery.min.js?rnd=1733393949600"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/bootstrap/js/bootstrap.bundle.min.js?rnd=1733393949600"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/smoothscroll/smooth-scroll.js?rnd=1733393949600"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/ytplayer/index.js?rnd=1733393949600"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/dropdown/js/navbar-dropdown.js?rnd=1733393949600"></script>
+  <script src="https://r.mobirisesite.com/969496/assets/theme/js/script.js?rnd=1733393949600"></script>
+
+</body>
+</html>

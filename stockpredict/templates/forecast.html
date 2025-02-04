@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="https://r.mobirisesite.com/969496/assets/images/g585e5d7b76e14419ad8694fc370f-h_m4a2jcbk.png" type="image/x-icon">
+  <meta name="description" content="">
+  <title>Stock Forecast | Predictive Analytics for Financial Markets</title>
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/bootstrap/css/bootstrap.min.css?rnd=1733496897086">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/dropdown/css/style.css?rnd=1733496897086">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/theme/css/style.css?rnd=1733496897086">
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/recaptcha.css?rnd=1733496897086">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Brygada+1918:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Brygada+1918:wght@400;700&display=swap"></noscript>
+  <link rel="stylesheet" href="https://r.mobirisesite.com/969496/assets/css/mbr-additional.css?rnd=1733496897086" type="text/css">
+
+  <!-- Chart.js for rendering charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    #predictionChart {
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem auto;
+    }
+    #evaluationTable {
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem auto;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    #evaluationTable thead tr {
+      background-color: #4a5568;
+    }
+
+    #evaluationTable th {
+      font-size: 1.2rem;
+      font-weight: 700;
+      padding: 1rem;
+      text-align: left;
+      color: #fff;
+      position: relative;
+    }
+
+    /* Chỉnh sửa CSS cho biểu tượng thông tin */
+    #evaluationTable th .info-icon,
+    #evaluationTable td .info-icon {
+      margin-right: 0.5rem; /* Thay đổi từ margin-left thành margin-right */
+      cursor: pointer;
+      color: #fff;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      font-size: 1rem; /* Điều chỉnh kích thước biểu tượng nếu cần */
+    }
+
+    #evaluationTable td {
+      font-size: 1.1rem;
+      font-weight: 500;
+      padding: 0.8rem 1rem;
+      background-color: #ffffff;
+      color: #333;
+      vertical-align: middle; /* Đảm bảo hàng được căn giữa theo chiều dọc */
+    }
+
+    #evaluationTable tbody tr:nth-child(even) {
+      background-color: #f3f4f6;
+    }
+
+    #evaluationTable tbody tr:hover {
+      background-color: #e2e8f0;
+    }
+
+    #predictionChartSection {
+      background-color: #2c2c2c;
+      padding: 2rem;
+      color: #fff;
+    }
+
+    #predictionChartSection h2 {
+      color: #fff;
+    }
+
+    /* Style for the model selector */
+    #modelSelector {
+      margin-top: 1rem;
+      display: inline-block;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background: #f9fafb;
+      font-size: 1rem;
+    }
+  </style>
+
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <section data-bs-version="5.1" class="menu menu5 cid-uwbHhBQgCg" once="menu" id="menu05-9">
+    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+      <div class="container">
+        <div class="navbar-brand">
+          <span class="navbar-logo">
+            <a href="#">
+              <img src="https://r.mobirisesite.com/969496/assets/images/g93c4f35fdc982878b94a7fb27428-h_m4cv9iwe.jpg" alt="" style="height: 4.3rem;">
+            </a>
+          </span>
+          <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="#">Stock Forecast</a></span>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
+            <li class="nav-item">
+              <a class="nav-link link text-black display-4" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link text-black display-4" href="{{ url_for('dashboard') }}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link text-black display-4" href="{{ url_for('forecast_page') }}">Forecast</a>
+            </li>
+          </ul>
+          <div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="#">Team 5</a></div>
+        </div>
+      </div>
+    </nav>
+  </section>
+
+  <!-- Header Section with Updated Form -->
+  <section data-bs-version="5.1" class="header8 cid-uwbHlEckLz pt-30" id="header08-a">
+    <div class="container">
+      <div class="row content-wrapper justify-content-center">
+        <div class="col-lg-7 mbr-form">
+          <div class="text-wrapper align-left" data-form-type="formoid">
+            <form action="{{ url_for('predict') }}" method="POST" class="mbr-form form-with-styler" data-form-title="Stock Forecast Form">
+              <input type="hidden" name="form" value="stock-forecast">
+              <div class="dragArea row">
+                <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 50px;">
+                  <h1 class="mbr-section-title mbr-fonts-style mb-4 display-1"><strong>Dự đoán giá cổ phiếu bằng mô hình học máy&nbsp;</strong></h1>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <p class="mbr-text mbr-fonts-style mb-4 display-7">
+                    Dự đoán giá cổ phiếu là yếu tố quan trọng giúp nhà đầu tư đưa ra quyết định chính xác. Sử dụng các mô hình học máy tiên tiến bao gồm SARIMAX, LSTM và KNN, chúng tôi phân tích dữ liệu lớn để dự báo biến động thị trường với độ chính xác cao. Trên trang web này, bạn sẽ khám phá cách áp dụng học máy để tối ưu hóa chiến lược đầu tư, quản lý rủi ro và tăng lợi nhuận. Hãy tận dụng sức mạnh của công nghệ để nâng cao hiệu quả đầu tư của bạn ngay hôm nay!
+                  </p>
+                </div>
+
+                <!-- Stock Symbol Input -->
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                  <label for="stock-symbol" class="visually-hidden">Mã cổ phiếu</label>
+                  <input type="text" name="stock_symbol" placeholder="Nhập mã cổ phiếu" data-form-field="stock_symbol" class="form-control display-7" required id="stock-symbol">
+                </div>
+
+                <!-- Number of Past Days Input -->
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                  <label for="num-past-days" class="visually-hidden">Số ngày quá khứ</label>
+                  <input type="number" name="num_past_days" placeholder="Số ngày quá khứ (30-500)" data-form-field="num_past_days" class="form-control display-7" min="10" max="500" step="5" required id="num-past-days" value="60">
+                </div>
+
+                <!-- Submit Button -->
+                <div class="col-12 text-center mt-3">
+                  <button type="submit" class="btn btn-black display-7">Dự đoán</button>
+                </div>
+
+                <!-- Success and Error Messages -->
+                <div class="row mt-3">
+                  <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Cảm ơn bạn đã gửi yêu cầu!</div>
+                  <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+                    Rất tiếc... đã xảy ra lỗi!
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Image Section -->
+        <div class="col-lg-5 col-12">
+          <div class="image-wrapper">
+            <img class="w-100" src="https://r.mobirisesite.com/969496/assets/images/gb1b7ce113263552aa64804648615-h_m4cv9x34.jpg" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prediction Chart Section (Dark Background) -->
+  <section id="predictionChartSection" class="cid-uwbHlEckLz">
+    <div class="container">
+      <div class="row">
+        <!-- Model Info Section (Hidden by default, show after prediction) -->
+        <div class="col-12 text-center mt-4" id="modelInfoSection" style="display:none;">
+          <h3 id="bestModelName" class="display-7" style="color:#fff;"></h3>
+          <select id="modelSelector" class="form-control" style="max-width:200px;margin:auto;"></select>
+        </div>
+
+        <div class="col-12">
+          <h2 class="mbr-section-title mbr-fonts-style mb-4 display-5 text-center">Biểu đồ Dự đoán Giá Cổ Phiếu</h2>
+          <canvas id="predictionChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Evaluation Metrics Table Section -->
+  <section id="evaluationMetricsSection" class="cid-uwbHlEckLz">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="mbr-section-title mbr-fonts-style mb-4 display-5 text-center">Chỉ số Đánh giá Dự đoán</h2>
+          <table class="table" id="evaluationTable">
+            <thead>
+              <tr>
+                <th>
+                  <span class="info-icon" data-bs-toggle="tooltip" data-bs-placement="top">
+                  </span>
+                  Chỉ số
+                </th>
+                <th>Giá trị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="info-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="R-squared (Hệ số xác định) đo lường tỷ lệ biến thiên của giá cổ phiếu được mô hình giải thích. Giá trị R-squared càng cao cho thấy mô hình càng phù hợp với dữ liệu thực tế.">
+                    ℹ️
+                  </span>
+                  R-squared
+                </td>
+                <td id="r-squared">-</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="info-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="MAPE (Sai số phần trăm tuyệt đối trung bình) đo lường độ chính xác của dự đoán dưới dạng phần trăm trung bình của sai số tuyệt đối giữa giá trị dự đoán và giá trị thực tế. Giá trị càng thấp cho thấy mô hình càng chính xác.">
+                    ℹ️
+                  </span>
+                  MAPE
+                </td>
+                <td id="mape">-</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="info-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="RMSE (Sai số gốc phương sai) đo lường mức độ lệch trung bình giữa giá trị dự đoán và giá trị thực tế bằng cách lấy căn bậc hai của trung bình các sai số bình phương. Giá trị càng thấp cho thấy mô hình càng chính xác.">
+                    ℹ️
+                  </span>
+                  RMSE
+                </td>
+                <td id="rmse">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section data-bs-version="5.1" class="footer4 cid-uwbHzLUXxM" once="footers" id="footer04-b">
+    <div class="container">
+      <div class="media-container-row align-center mbr-white">
+        <div class="col-12">
+          <p class="mbr-text mb-0 mbr-fonts-style display-7">
+            © 2024 Nhóm 5. Phân tích dữ liệu tài chính quy mô lớn.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://r.mobirisesite.com/969496/assets/web/assets/jquery/jquery.min.js?rnd=1733496897086" defer></script>
+  <script src="https://r.mobirisesite.com/969496/assets/bootstrap/js/bootstrap.bundle.min.js?rnd=1733496897086" defer></script>
+  <script src="https://r.mobirisesite.com/969496/assets/smoothscroll/smooth-scroll.js?rnd=1733496897086" defer></script>
+  <script src="https://r.mobirisesite.com/969496/assets/ytplayer/index.js?rnd=1733496897086" defer></script>
+  <script src="https://r.mobirisesite.com/969496/assets/dropdown/js/navbar-dropdown.js?rnd=1733496897086" defer></script>
+  <script src="https://r.mobirisesite.com/969496/assets/theme/js/script.js?rnd=1733496897086" defer></script>
+  <script src="https://r.mobirisesite.com/969496/assets/formoid.min.js?rnd=1733496897086" defer></script>
+
+  <!-- Custom Scripts for Chart and Table -->
+  <script>
+    let predictionChart;
+    let modelsData = [];
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('predictionChart').getContext('2d');
+    
+    predictionChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [
+          {
+            label: 'Giá Cổ Phiếu Lịch Sử',
+            data: [],
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderWidth: 2,
+            fill: true,
+            pointBackgroundColor: [],
+            pointRadius: [] // Thêm bán kính điểm
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            type: 'category',
+            title: {
+              display: true,
+              text: 'Ngày',
+              color: '#fff'
+            },
+            grid: {
+              color: 'rgba(255,255,255,0.1)'
+            },
+            ticks: {
+              color: '#fff'
+            }
+          },
+          y: {
+            beginAtZero: false,
+            title: {
+              display: true,
+              text: 'Giá',
+              color: '#fff'
+            },
+            grid: {
+              color: 'rgba(255,255,255,0.1)'
+            },
+            ticks: {
+              color: '#fff'
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#fff'
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                if (tooltipItem.dataIndex === tooltipItem.dataset.data.length - 1) {
+                  return 'Giá Dự Đoán: ' + tooltipItem.raw;
+                }
+                return 'Giá Lịch Sử: ' + tooltipItem.raw;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    function updateChart(labels, data, nextDayIndex) {
+      const pointColors = labels.map((label, index) => {
+        return index === nextDayIndex ? 'blue' : 'red';
+      });
+
+      const pointRadii = labels.map((label, index) => {
+        return index === nextDayIndex ? 8 : 4; // Điểm dự đoán to hơn
+      });
+
+      predictionChart.data.labels = labels;
+      predictionChart.data.datasets[0].data = data;
+      predictionChart.data.datasets[0].pointBackgroundColor = pointColors;
+      predictionChart.data.datasets[0].pointRadius = pointRadii;
+      predictionChart.update();
+    }
+
+    function updateEvaluationMetrics(rSquared, mape, rmse) {
+      document.getElementById('r-squared').textContent = rSquared;
+      document.getElementById('mape').textContent = mape;
+      document.getElementById('rmse').textContent = rmse;
+    }
+
+    function updateChartWithModelData(modelData) {
+      const labels = modelData.labels;
+      const data = modelData.predicted_prices;
+      const nextDayIndex = labels.length - 1; // Giá dự đoán là ngày cuối cùng
+
+      updateChart(labels, data, nextDayIndex);
+      updateEvaluationMetrics(
+        modelData.metrics.R2_Score,
+        modelData.metrics.MAPE,
+        modelData.metrics.RMSE
+      );
+    }
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: form.method,
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            const errorAlert = document.querySelector('[data-form-alert-danger]');
+            errorAlert.textContent = data.error;
+            errorAlert.removeAttribute('hidden');
+            return;
+          }
+
+          modelsData = data.models;
+          updateChartWithModelData(modelsData[0]);
+
+          document.getElementById('bestModelName').textContent = "Mô hình tốt nhất: " + data.best_model;
+          document.getElementById('modelInfoSection').style.display = 'block';
+
+          const modelSelector = document.getElementById('modelSelector');
+          modelSelector.innerHTML = '';
+          modelsData.forEach((m, idx) => {
+            const opt = document.createElement('option');
+            opt.value = idx;
+            opt.textContent = m.model + (idx === 0 ? ' (Best)' : '');
+            modelSelector.appendChild(opt);
+          });
+
+          modelSelector.addEventListener('change', function() {
+            const selectedIndex = parseInt(this.value);
+            updateChartWithModelData(modelsData[selectedIndex]);
+          });
+
+          const successAlert = document.querySelector('[data-form-alert]');
+          successAlert.textContent = 'Dự đoán thành công!';
+          successAlert.removeAttribute('hidden');
+
+          const errorAlert = document.querySelector('[data-form-alert-danger]');
+          errorAlert.setAttribute('hidden', '');
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          const errorAlert = document.querySelector('[data-form-alert-danger]');
+          errorAlert.textContent = 'Rất tiếc... đã xảy ra lỗi!';
+          errorAlert.removeAttribute('hidden');
+        });
+    });
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  });
+
+
+    //   // Khởi tạo các tooltip của Bootstrap
+    //   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    //   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    //     return new bootstrap.Tooltip(tooltipTriggerEl)
+    //   })
+    // });
+  </script>
+
+</body>
+</html>
